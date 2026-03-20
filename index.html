@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Passport Photo Tool</title>
+</head>
+<body>
+  <h2>Upload Photo</h2>
+  <input type="file" id="file">
+  <button onclick="upload()">Process</button>
+
+  <script>
+    function upload() {
+      let file = document.getElementById("file").files[0];
+      let formData = new FormData();
+      formData.append("image", file);
+
+      fetch("/upload", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.blob())
+      .then(blob => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = "passport.jpg";
+        a.click();
+      });
+    }
+  </script>
+</body>
+</html>
