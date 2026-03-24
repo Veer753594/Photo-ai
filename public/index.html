@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Passport Photo Tool</title>
+  <title>AI Passport Photo Tool</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Upload Photo</h2>
+
+<div class="card">
+  <h1>📸 Passport Photo Pro</h1>
+
   <input type="file" id="file">
-  <button onclick="upload()">Process</button>
 
-  <script>
-    function upload() {
-      let file = document.getElementById("file").files[0];
-      let formData = new FormData();
-      formData.append("image", file);
+  <select id="bg">
+    <option value="white">White Background</option>
+    <option value="blue">Blue Background</option>
+  </select>
 
-      fetch("/upload", {
-        method: "POST",
-        body: formData
-      })
-      .then(res => res.blob())
-      .then(blob => {
-        let url = window.URL.createObjectURL(blob);
-        let a = document.createElement("a");
-        a.href = url;
-        a.download = "passport.jpg";
-        a.click();
-      });
-    }
-  </script>
+  <button onclick="upload()">✨ Generate Photo</button>
+
+  <div id="status"></div>
+  <div id="preview"></div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
